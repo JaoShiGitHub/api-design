@@ -52,15 +52,13 @@ app.put("/members/:id", (req, res) => {
 
 app.delete("/members/:id", (req, res) => {
   const deleteId = Number(req.params.id);
+  const index = devnightMembers.findIndex((member) => member.id === deleteId);
 
-  console.log("Before:", devnightMembers);
-  devnightMembers = devnightMembers.filter((member) => {
-    return member.id !== deleteId;
-  });
-  console.log("After:", devnightMembers);
+  devnightMembers.splice(index, 1);
 
   return res.json({
     message: "The member has been deleted",
+    devnightMembers,
   });
 });
 
