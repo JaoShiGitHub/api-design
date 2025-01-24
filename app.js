@@ -8,7 +8,8 @@ app.use(bodyParser.json()); // to be allowed to access the params
 // "/trips"    = root | endpoint | endpoint path
 // () => {...} = controller function | handler function
 app.get("/members", (req, res) => {
-  res.send("Attraction Data");
+  // res.send("Attraction Data");
+  res.json({ data: devnightMembers });
 });
 
 app.get("/members/:id", (req, res) => {
@@ -19,6 +20,17 @@ app.get("/members/:id", (req, res) => {
   console.log(memberId);
 
   return res.json({ data: member[0] });
+});
+
+app.post("/members", (req, res) => {
+  const newMember = req.body;
+
+  devnightMembers.push({
+    id: devnightMembers[devnightMembers.length - 1].id + 1,
+    ...newMember,
+  });
+
+  return res.json({ message: "Member info has been created" });
 });
 
 app.listen(4000, () => {
