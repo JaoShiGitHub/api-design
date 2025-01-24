@@ -34,7 +34,7 @@ app.post("/members", (req, res) => {
 });
 
 app.put("/members/:id", (req, res) => {
-  const updatedMember = req.body; // The data that the user needs to update
+  const updateMember = req.body; // The data that the user needs to update
   const memberId = req.params.id; // The member that the user needs to update
 
   const updateMemberId = devnightMembers.findIndex(
@@ -42,11 +42,25 @@ app.put("/members/:id", (req, res) => {
   );
   devnightMembers[updateMemberId] = {
     id: devnightMembers[updateMemberId].id,
-    ...updatedMember,
+    ...updateMember,
   };
 
   return res.json({
     message: "Member info has been updated",
+  });
+});
+
+app.delete("/members/:id", (req, res) => {
+  const deleteId = Number(req.params.id);
+
+  console.log("Before:", devnightMembers);
+  devnightMembers = devnightMembers.filter((member) => {
+    return member.id !== deleteId;
+  });
+  console.log("After:", devnightMembers);
+
+  return res.json({
+    message: "The member has been deleted",
   });
 });
 
