@@ -33,6 +33,23 @@ app.post("/members", (req, res) => {
   return res.json({ message: "Member info has been created" });
 });
 
+app.put("/members/:id", (req, res) => {
+  const updatedMember = req.body; // The data that the user needs to update
+  const memberId = req.params.id; // The member that the user needs to update
+
+  const updateMemberId = devnightMembers.findIndex(
+    (member) => member.id == memberId
+  );
+  devnightMembers[updateMemberId] = {
+    id: devnightMembers[updateMemberId].id,
+    ...updatedMember,
+  };
+
+  return res.json({
+    message: "Member info has been updated",
+  });
+});
+
 app.listen(4000, () => {
   console.log("Server is listening at port 4000");
 });
