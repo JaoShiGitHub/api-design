@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { devnightMembers } from "../data/devnight_members.js";
+import { validateMemberData } from "./validateMemberData.js";
 
 const memberRouter = Router();
 
@@ -20,7 +21,8 @@ memberRouter.get("/:id", (req, res) => {
   return res.json({ data: member[0] });
 });
 
-memberRouter.post("/", (req, res) => {
+// middleware
+memberRouter.post("/", [validateMemberData], (req, res) => {
   const newMember = req.body;
 
   devnightMembers.push({
