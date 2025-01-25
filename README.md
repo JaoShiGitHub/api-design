@@ -1,0 +1,6 @@
+- API Design
+- Router Express
+- bodyParser
+- Middleware
+- Authentication
+- JSON Web Token (JWT)
